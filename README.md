@@ -8,14 +8,15 @@ Script will endlessly farm minor quests and the corresponding items from the Pre
 Release Notes\
 Version 0.1 - First Draft
 
-Prerequisites:\
-No active quest (or be willing to abort progress in current quest)\
-Have completed the Pretty Pink Princess item set to unlock Pretty Pink Princess quests.\
-Adequate Inventory Space on visible inventory page\
-Adventure Mode idle mode is on\
-Filter 500 Boosts, and 1K Boosts, and MacGuffins unless you are confident in your auto-boost/merge to keep your inventory adequately clear.\
-Suggestion: Wear Quest Drops and Respawn accessories.
+Prerequisites:
+1. No active quest (or be willing to abort progress in current quest)
+2. Have completed the Pretty Pink Princess item set to unlock Pretty Pink Princess quests.
+3. Have adequate Inventory Space on the currently visible inventory page
+4. Adventure Mode idle mode is on
+5. Filter 500 Boosts, and 1K Boosts, and MacGuffins unless you are confident in your auto-boost/merge to keep your inventory adequately clear.
 
+Suggestion: 
+1. Wear Quest Drops and Respawn accessories.
 
 Instructions for Questing:
 1. Run the script.
