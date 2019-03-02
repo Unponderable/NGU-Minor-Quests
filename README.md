@@ -6,7 +6,8 @@ Supports NGU Idle version 0.414-2
 Script will endlessly farm minor quests and the corresponding items from the Pretty Pink Princess zone.
 
 Release Notes\
-Version 0.1 - First Draft
+v0.2 - Implemented manual killing (to shave ~0.8 sec per kill).
+v0.1 - First Draft
 
 Prerequisites:
 1. No active quest (or be willing to abort progress in current quest)

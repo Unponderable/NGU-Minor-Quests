@@ -93,15 +93,15 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 		GetPPPQuest()
 		Inventory()
 		Loop{
-			ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 questing_ppp_item.png
-			if Px ;If there's quest item in the inventory...
+			ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_ppp_item.png
+			if Xif ;If there's quest item in the inventory...
 			{
-				Click, right, %Px%, %Py% ;deposit all quest items
+				Click, right, %Xif%, %Yif% ;deposit all quest items
 				Sleep, 500
 				Questing()
 				Sleep, 2000
-				ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 questing_done.png
-				if Px ;If there's a quest ready to be completed...
+				ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_done.png
+				if Xif ;If there's a quest ready to be completed...
 				{ 
 					Questing()
 					Click, %XQuestAccept%, %YQuestButton% ;Complete it
@@ -109,9 +109,10 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 					Inventory()
 					break
 				}
-				Inventory()
+				
 			}
-					
+			FastIdle()
+			Inventory()		
 			Sleep, 1000
 		}
 		
@@ -138,10 +139,10 @@ Questing()
 
 MajorQuestCheck() ;if major quest checkmark is checked, uncheck it
 {
-	ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 questing_majqcheck.png
-	if Px
+	ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_majqcheck.png
+	if Xif
 	{
-		Click, %Px%, %Py%
+		Click, %Xif%, %Yif%
 	}
 	Sleep, 100
 }
@@ -152,8 +153,8 @@ GetPPPQuest() ;get a PPP quest
 	Sleep, 100
 	
 	;imagesearch for quest text
-	ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 questing_ppp_text.png
-	if Px
+	ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_ppp_text.png
+	if Xif
 	{
 		return
 	}
@@ -165,8 +166,8 @@ GetPPPQuest() ;get a PPP quest
 	Sleep, 100
 	
 	;imagesearch for quest text
-	ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 questing_ppp_text.png
-	if Px
+	ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_ppp_text.png
+	if Xif
 	{
 		return
 	}
@@ -179,5 +180,67 @@ GetPPPQuest() ;get a PPP quest
 	Sleep, 100
 	
 	;loop to second line
+	}
+}
+
+FastIdle()
+{
+	Adventure()
+	
+	;Check if IDLE mode is already off
+	XPositionYellowBorderAroundIdleMode := Px + 313 ;The tiny yellow border that surrounds Idle Mode when it's on
+	YPositionYellowBorderAroundIdleMode := Py + 102
+	PixelGetColor, idleborderpx, %XPositionYellowBorderAroundIdleMode%, %YPositionYellowBorderAroundIdleMode%, Alt ;Check border of idle mode for yellow color
+	if colorcheck(idleborderpx,0x04EBFF)=1
+	{
+		Send,q ;Turn off Idle Mode
+	}
+
+	Sleep, 50
+	Loop,100	{
+		Loop{ ;Wait for spawn
+			Sleep,5
+		} Until FightingMonsterCheck() = 0
+		Send,w
+		Sleep, 1000
+	}
+	Send,q
+	Sleep,50
+}
+
+FightingMonsterCheck() ; Checks for white in the red enemy health bar
+{
+	X1 := Px + 1061 - 329
+	Y1 := Py + 780 - 374	
+
+	PixelSearch,,, X1, Y1, X1+4, Y1+4, 0xFFFFFF, 1, Fast
+	if ErrorLevel
+	{
+		;MsgBox, That color was not found in the specified region, X%X1% Y%Y1%.
+		return, 0
+	}
+	else
+	{
+		;MsgBox, A color within 3 shades of variation was found at X%X1% Y%Y1%.
+		return, 1
+	}
+}
+colorcheck(colorvalue,referencecolor) ;Converts hex to BGR and then compares values; returns 1 if within tolerance, returns 0 if not
+{
+    Red := colorvalue & 0xFF
+    Green := colorvalue >> 8 & 0xFF
+    Blue := colorvalue >> 16 & 0xFF
+	
+	RedRef := referencecolor & 0xFF
+    GreenRef := referencecolor >> 8 & 0xFF
+    BlueRef := referencecolor >> 16 & 0xFF
+	
+	if (Abs(Red-RedRef)<50) && (Abs(Green-GreenRef)<50) && (Abs(Blue-BlueRef)<50)
+	{
+		return, 1
+	}
+	else
+	{
+		return, 0
 	}
 }
