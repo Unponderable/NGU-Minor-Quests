@@ -99,7 +99,8 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 				Click, right, %Xif%, %Yif% ;deposit all quest items
 				Sleep, 500
 				Questing()
-				Sleep, 2000
+				MouseMove,Px,Py
+				Sleep, 500
 				ImageSearch, Xif, Yif, 0, 0, %WinW%, %WinH%, *10 questing_done.png
 				if Xif ;If there's a quest ready to be completed...
 				{ 
