@@ -44,23 +44,40 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 
 ^j:: ;**Press CTRL+J to begin script loop**
 {
-	IfWinNotActive, Play NGU IDLE
+	IfWinNotActive, Play NGU IDLE ;Kongregate
 	{
-		MsgBox, Failed to initiate - NGU Idle window not active.`nRun the script when the game window is active.
-		Exit
+		IfWinNotActive, NGU Idle ;Kartridge
+		{
+			MsgBox, Failed to initiate - NGU Idle window not active.`nRun the script when the game window is active.
+			Exit
+		}
 	}
 	SetMouseDelay, 10
 	SetKeyDelay, 10
 	LoopCount := 0
 
 	WinGetPos,,,WinW,WinH
-
-	SearchFileName = TopLeft.png
-	ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 %SearchFileName%
-	if ErrorLevel{
-		MsgBox, Failed to initiate - couldn't detect top left corner of NGU Idle using ImageSearch.`nMake sure the game is fully visible on your screen.`nExiting...
-		Exit
+	
+	IfWinActive, Play NGU IDLE
+	{
+		SearchFileName = TopLeft.png
+		ImageSearch, Px, Py, 0, 0, %WinW%, %WinH%, *10 %SearchFileName%
+		if ErrorLevel{
+			MsgBox, Failed to initiate - couldn't detect top left corner of NGU Idle using ImageSearch.`nMake sure the game is fully visible on your screen.`nExiting...
+				Exit
 		}
+	}
+	Else
+	{
+		IfWinActive, NGU Idle
+		{
+			CoordMode, Mouse, Client
+			CoordMode, Pixel, Client
+			Px := 0
+			Py := 0
+		}
+	}
+	
 	
 	;Set the position of boxes relative to the top left corner. Determined in advance.
 	XPositionAdventure := Px + 237 ;The Adventure button under Features
@@ -187,7 +204,8 @@ GetPPPQuest() ;get a PPP quest
 FastIdle()
 {
 	Adventure()
-	
+	MouseMove,Px,Py
+	Sleep, 500
 	;Check if IDLE mode is already off
 	XPositionYellowBorderAroundIdleMode := Px + 313 ;The tiny yellow border that surrounds Idle Mode when it's on
 	YPositionYellowBorderAroundIdleMode := Py + 102
