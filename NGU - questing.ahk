@@ -73,8 +73,8 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 		{
 			CoordMode, Mouse, Client
 			CoordMode, Pixel, Client
-			Px := 0
-			Py := 0
+			Px := 1
+			Py := 1
 		}
 	}
 	
