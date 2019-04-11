@@ -47,7 +47,7 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 {
 	IfWinNotActive, Play NGU IDLE ;Kongregate
 	{
-		IfWinNotActive, NGU Idle ;Kartridge
+		IfWinNotActive, ahk_exe NGUIdle.exe ;Kartridge
 		{
 			MsgBox, Failed to initiate - NGU Idle window not active.`nRun the script when the game window is active.
 			Exit
@@ -70,7 +70,7 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 	}
 	Else
 	{
-		IfWinActive, NGU Idle
+		IfWinActive, ahk_exe NGUIdle.exe
 		{
 			CoordMode, Mouse, Client
 			CoordMode, Pixel, Client
