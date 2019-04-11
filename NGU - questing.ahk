@@ -1,9 +1,10 @@
-﻿;Unponderable's Questing Script for NGU Idle v0.1
-;Supports NGU Idle version 0.414-2
+﻿;Unponderable's Questing Script for NGU Idle v0.1a
+;Supports NGU Idle version 0.420
 ;
 ;Script will endlessly farm minor quests and the corresponding items from the Pretty Pink Princess zone.
 ;
 ;Release Notes
+;Version 0.1a - 0.420 support
 ;Version 0.1 - First Draft
 ;
 ;Prerequisites:
@@ -73,8 +74,8 @@ Esc::ExitApp ;**Press Escape to end the script at anytime**
 		{
 			CoordMode, Mouse, Client
 			CoordMode, Pixel, Client
-			Px := 1
-			Py := 1
+			Px := 0
+			Py := 0
 		}
 	}
 	
