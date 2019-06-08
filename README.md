@@ -1,4 +1,6 @@
-# NGU Minor Quests
+# THIS REPOSITORY IS DEFUNCT. Use https://github.com/Unponderable/NGU-Quests now
+
+NGU Minor Quests
 
 Unponderable's Questing Script for NGU Idle v0.1\
 Supports NGU Idle version 0.414-2
